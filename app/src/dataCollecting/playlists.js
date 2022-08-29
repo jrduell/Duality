@@ -3,24 +3,11 @@ import axios from 'axios';
 import { getCurrentUserPlaylists, getPlaylistItems, getUserPlaylists, createPlaylist, addPlaylistItems } from '../spotify';
 import { catchErrors } from '../utils';
 
-function findOverlap(CurrentSongs, UserSongs) {
-    let overlap = [];
-
-    for (var i = 0; i < UserSongs.length; i++) {
-        const index = CurrentSongs.indexOf(UserSongs[i]);
-        if (index === -1) {
-            //means song is unique and should be added to overlap
-            overlap.push(CurrentSongs[index]);
-        }
-    }
-    console.log("Overlap: " + overlap.length);
-}
-
 const CsongIDs = [];
 const UsongIDs = [];
 const Overlap = [];
 
-export const Playlists = () => {
+export function Playlists () {
     const [CplaylistsData, CsetPlaylistsData] = useState(null);
     const [Cplaylists, CsetPlaylists] = useState(null);
 
@@ -36,6 +23,7 @@ export const Playlists = () => {
 
     useEffect(() =>  {
     const fetchData = async () => {
+        console.log("playlists.js");
         const { data } = await getCurrentUserPlaylists();
         
         CsetPlaylists(Cplaylists => ([
@@ -272,6 +260,5 @@ export const Playlists = () => {
 
             catchErrors(fetchData());
         }
-    }, [Create]);
-    
+    }, [Create]);  
 };

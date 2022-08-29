@@ -29,6 +29,10 @@ function App() {
     const fetchData = async() => {
       const { data } = await getCurrentUserProfile();
       setProfile(data);
+
+      // eslint-disable-next-line no-unused-expressions
+      //Playlists();
+      //if (token) { Playlists(); }
     }
 
     catchErrors(fetchData());
@@ -36,32 +40,14 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {!token ? (
-          <a
-          className="App-link"
-          href="http://localhost:8888/login"
-        >
-          Log in to Spotify
-        </a>
-        ) : (
-          <Router>
-            <nav>
-              <a href="/">Home</a>
-              <a href="/by-user">By User</a>
-              <a href="/by-playlist">By Playlist</a>
-            </nav>
-
-            <Routes>
-              <Route path="/by-user" element={<UserSearch/>}/>
-              <Route path="/by-playlist" element={<Playlists/>}/>
-              <Route path="/" element={<Home/>}/>
-            </Routes>
-          </Router>
-        )}
-      </header>
-    </div>
+    <>
+    <head>
+      <title>Page title</title>
+    </head>
+    <body>
+          <button>button there</button>
+    </body>
+    </>
   );
 }
 
@@ -76,8 +62,14 @@ function Home() {
     <>
       <h1>Home!</h1>
       <button onClick={logout}>Log out</button>
+      <button onClick={CreateBtnTapped}>Create</button>
     </>
   );
+}
+
+function CreateBtnTapped() {
+  console.log("hi");
+  return <button>this</button>;
 }
 /*
 function URLSearch () {
