@@ -20,7 +20,8 @@ const CsongIDs = [];
 const UsongIDs = [];
 const Overlap = [];
 
-export const Playlists = () => {
+export const Playlists = (props) => {
+
     const [CplaylistsData, CsetPlaylistsData] = useState(null);
     const [Cplaylists, CsetPlaylists] = useState(null);
 
@@ -122,7 +123,7 @@ export const Playlists = () => {
     useEffect(() =>  {
         const fetchData = async () => {
             if (Go !== false) {
-                const { data } = await getUserPlaylists("lauravonbargen");
+                const { data } = await getUserPlaylists(props.name);
                 
                 UsetPlaylists(Uplaylists => ([
                 ...Uplaylists ? Uplaylists : [],

@@ -35,6 +35,8 @@ function App() {
 
   }, [])
 
+  
+
   return (
     <div className="App">
       <header className="App-header">
@@ -46,44 +48,57 @@ function App() {
           Log in to Spotify
         </a>
         ) : (
-          <Router>
-            <nav>
-              <a href="/">Home</a>
-              <a href="/by-user">By User</a>
-              <a href="/by-playlist">By Playlist</a>
-            </nav>
-
-            <Routes>
-              <Route path="/by-user" element={<UserSearch/>}/>
-              <Route path="/by-playlist" element={<Playlists/>}/>
-              <Route path="/" element={<Home/>}/>
-            </Routes>
-          </Router>
+          <div>
+            <Home/>
+          </div>
         )}
       </header>
     </div>
   );
 }
 
-function UserSearch() {
-  return <h1>User Search!</h1>;
-}
-
-
-
 function Home() {
+  const handleSearch = (event) => {
+    console.log("loading")
+  }
+
+  const [userName, setUsername] = useState('')
+  const [didEnterUser, setDidEnterUser] = useState(false)
+
   return (
     <>
-      <h1>Home!</h1>
+      
+      <h1>Home</h1>
+      <hr/>
+
+      {didEnterUser ? (
+        <Playlists name={userName}/>
+      ) : (
+        <p>Enter valid spotify user id to begin</p>
+      )
+      }
+
+      <label htmlFor='search'>Search: </label>
+      <SearchInput onSearch={handleSearch} setName={setUsername} setDidEnter={setDidEnterUser}/>
+      <hr/>
       <button onClick={logout}>Log out</button>
     </>
   );
 }
-/*
-function URLSearch () {
-  return (
-    <button onClick={Playlists()}>Create</button>
-  );
+
+const SearchInput = (props) => {
+
+  const [disabled, setDisabled] = useState(false);
+
+  const handleKeydown = (event) => {
+    if (event.key === 'Enter') {
+      props.onSearch(event)
+      props.setName(event.target.value)
+      props.setDidEnter(true)
+      setDisabled(!disabled)
+    }
+  }
+  return <input id="search" type="text" disabled={disabled} onKeyDown={handleKeydown}/>
 }
-*/
+
 export default App;
